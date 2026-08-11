@@ -2,7 +2,7 @@
 
 ## LLM-Assisted Active Differential Diagnosis of Power-System Simulation Anomalies with Evidence-Grounded Verification
 
-This document provides the manuscript-facing supplementary evidence for the primary evaluation of CausalProbe. It is organized to make the frozen mechanism registry, six-case construction, evidence semantics, replay fairness, primary results, representative diagnostic trajectories, and auxiliary planning ablation directly inspectable.
+This document provides the manuscript-facing supplementary evidence for the primary evaluation of CausalProbe and the secondary cross-backbone robustness evaluation. It is organized to make the frozen mechanism registry, six-case construction, evidence semantics, replay fairness, primary results, representative diagnostic trajectories, auxiliary planning ablation, and cross-backbone robustness results directly inspectable.
 
 The supplementary material supports the claims in the manuscript but is not intended to constitute a complete software-reproduction package. Machine-readable supporting files are linked below where applicable.
 
@@ -132,3 +132,110 @@ The No-Discriminative-Planning auxiliary variant removed the explicit coverage-b
 Predefined classification: `PLANNING_CONTRIBUTION_NOT_SUPPORTED`.
 
 > The auxiliary experiment did not demonstrate that the explicit coverage-based inspection-ranking heuristic independently reduced diagnostic path length in this benchmark. Accordingly, the primary claims are made for the integrated active differential-diagnosis workflow rather than for the ranking heuristic in isolation.
+
+## Supplementary Note S7 — Cross-Backbone Robustness
+
+Machine-readable cross-backbone results: [`cross_backbone_summary.csv`](../results/cross_backbone_summary.csv), [`cross_backbone_per_case.csv`](../results/cross_backbone_per_case.csv), [`fig2_grounded_closure.csv`](../results/fig2_grounded_closure.csv), and [`fig2_safety_ceiling.csv`](../results/fig2_safety_ceiling.csv).
+
+### S7.1 Design and provenance
+
+The frozen semantic protocol was evaluated on Qwen2.5-7B-Instruct, Meta-Llama-3.1-8B-Instruct, Qwen2.5-32B-Instruct, and DeepSeek-V4-Pro served through SiliconFlow. Qwen2.5-7B, Meta-Llama-3.1-8B, and DeepSeek-V4-Pro used 10 repetitions per case and method (120 episodes per backbone); Qwen2.5-32B used its frozen 20 repetitions per case and method (240 episodes). Schedules were case-stratified and temporally interleaved. Repetitions are interpreted as case-stratified stochastic draws, not intrinsically paired observations.
+
+DeepSeek requests specified `deepseek-ai/DeepSeek-V4-Pro`, `enable_thinking=false` (`EXPLICIT_NON_THINKING`), temperature 0.2, top_p 0.8, and non-streaming responses. All 120 diagnostic episodes reported zero reasoning tokens. This provenance does not imply direct official DeepSeek API access or cross-provider inference-compute equivalence.
+
+### S7.2 Aggregate results
+
+| Backbone | Method | Mechanism correct | Grounded closure | Unsupported/premature | Safety ceiling | Contract-valid | Mean path length |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Qwen2.5-7B-Instruct | Generic ReAct | 0/60 | 0/60 | 0/60 | 60/60 | 0/60 | 5.83 |
+| Qwen2.5-7B-Instruct | CausalProbe | 60/60 | 60/60 | 0/60 | 0/60 | 60/60 | 3.88 |
+| Meta-Llama-3.1-8B-Instruct | Generic ReAct | 0/60 | 0/60 | 0/60 | 60/60 | 0/60 | 4.73 |
+| Meta-Llama-3.1-8B-Instruct | CausalProbe | 41/60 | 41/60 | 0/60 | 19/60 | 12/60 | 1.78 |
+| Qwen2.5-32B-Instruct | Generic ReAct | 111/120 | 82/120 | 38/120 | 0/120 | 106/120 | 6.51 |
+| Qwen2.5-32B-Instruct | CausalProbe | 120/120 | 120/120 | 0/120 | 0/120 | 120/120 | 2.57 |
+| DeepSeek-V4-Pro served through SiliconFlow | Generic ReAct | 60/60 | 21/60 | 39/60 | 0/60 | 60/60 | 4.68 |
+| DeepSeek-V4-Pro served through SiliconFlow | CausalProbe | 60/60 | 60/60 | 0/60 | 0/60 | 60/60 | 3.98 |
+
+### S7.3 DeepSeek per-case results
+
+| Case | Symptom family | Method | Mechanism correct | Grounded | Unsupported/premature | Safety ceiling | Mean path |
+|---|---|---|---:|---:|---:|---:|---:|
+| case_01 | LOW_VOLTAGE | Generic ReAct | 10/10 | 9/10 | 1/10 | 0/10 | 5.80 |
+| case_01 | LOW_VOLTAGE | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 3.40 |
+| case_02 | LOW_VOLTAGE | Generic ReAct | 10/10 | 0/10 | 10/10 | 0/10 | 4.00 |
+| case_02 | LOW_VOLTAGE | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 4.00 |
+| case_03 | THERMAL_OVERLOAD | Generic ReAct | 10/10 | 8/10 | 2/10 | 0/10 | 5.50 |
+| case_03 | THERMAL_OVERLOAD | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 4.90 |
+| case_04 | THERMAL_OVERLOAD | Generic ReAct | 10/10 | 2/10 | 8/10 | 0/10 | 5.40 |
+| case_04 | THERMAL_OVERLOAD | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 5.40 |
+| case_05 | NONCONVERGENCE | Generic ReAct | 10/10 | 2/10 | 8/10 | 0/10 | 3.10 |
+| case_05 | NONCONVERGENCE | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 3.00 |
+| case_06 | NONCONVERGENCE | Generic ReAct | 10/10 | 0/10 | 10/10 | 0/10 | 4.30 |
+| case_06 | NONCONVERGENCE | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 3.20 |
+
+### S7.4 Four-backbone per-case results
+
+| Case | Symptom family | Backbone | Method | Mechanism correct | Grounded | Unsupported/premature | Safety ceiling | Mean path |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| case_01 | LOW_VOLTAGE | Qwen2.5-7B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 6.00 |
+| case_02 | LOW_VOLTAGE | Qwen2.5-7B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 6.00 |
+| case_03 | THERMAL_OVERLOAD | Qwen2.5-7B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 3.60 |
+| case_04 | THERMAL_OVERLOAD | Qwen2.5-7B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 6.60 |
+| case_05 | NONCONVERGENCE | Qwen2.5-7B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 6.00 |
+| case_06 | NONCONVERGENCE | Qwen2.5-7B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 6.80 |
+| case_01 | LOW_VOLTAGE | Qwen2.5-7B-Instruct | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 4.00 |
+| case_02 | LOW_VOLTAGE | Qwen2.5-7B-Instruct | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 4.00 |
+| case_03 | THERMAL_OVERLOAD | Qwen2.5-7B-Instruct | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 5.20 |
+| case_04 | THERMAL_OVERLOAD | Qwen2.5-7B-Instruct | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 4.10 |
+| case_05 | NONCONVERGENCE | Qwen2.5-7B-Instruct | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 3.00 |
+| case_06 | NONCONVERGENCE | Qwen2.5-7B-Instruct | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 3.00 |
+| case_01 | LOW_VOLTAGE | Meta-Llama-3.1-8B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 5.00 |
+| case_02 | LOW_VOLTAGE | Meta-Llama-3.1-8B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 4.90 |
+| case_03 | THERMAL_OVERLOAD | Meta-Llama-3.1-8B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 5.10 |
+| case_04 | THERMAL_OVERLOAD | Meta-Llama-3.1-8B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 4.00 |
+| case_05 | NONCONVERGENCE | Meta-Llama-3.1-8B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 4.70 |
+| case_06 | NONCONVERGENCE | Meta-Llama-3.1-8B-Instruct | Generic ReAct | 0/10 | 0/10 | 0/10 | 10/10 | 4.70 |
+| case_01 | LOW_VOLTAGE | Meta-Llama-3.1-8B-Instruct | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 2.00 |
+| case_02 | LOW_VOLTAGE | Meta-Llama-3.1-8B-Instruct | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 3.20 |
+| case_03 | THERMAL_OVERLOAD | Meta-Llama-3.1-8B-Instruct | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 2.30 |
+| case_04 | THERMAL_OVERLOAD | Meta-Llama-3.1-8B-Instruct | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 3.00 |
+| case_05 | NONCONVERGENCE | Meta-Llama-3.1-8B-Instruct | CausalProbe | 0/10 | 0/10 | 0/10 | 10/10 | 0.00 |
+| case_06 | NONCONVERGENCE | Meta-Llama-3.1-8B-Instruct | CausalProbe | 1/10 | 1/10 | 0/10 | 9/10 | 0.20 |
+| case_01 | LOW_VOLTAGE | Qwen2.5-32B-Instruct | Generic ReAct | 11/20 | 11/20 | 9/20 | 0/20 | 6.00 |
+| case_02 | LOW_VOLTAGE | Qwen2.5-32B-Instruct | Generic ReAct | 20/20 | 11/20 | 9/20 | 0/20 | 5.50 |
+| case_03 | THERMAL_OVERLOAD | Qwen2.5-32B-Instruct | Generic ReAct | 20/20 | 20/20 | 0/20 | 0/20 | 7.00 |
+| case_04 | THERMAL_OVERLOAD | Qwen2.5-32B-Instruct | Generic ReAct | 20/20 | 20/20 | 0/20 | 0/20 | 7.00 |
+| case_05 | NONCONVERGENCE | Qwen2.5-32B-Instruct | Generic ReAct | 20/20 | 20/20 | 0/20 | 0/20 | 6.55 |
+| case_06 | NONCONVERGENCE | Qwen2.5-32B-Instruct | Generic ReAct | 20/20 | 0/20 | 20/20 | 0/20 | 7.00 |
+| case_01 | LOW_VOLTAGE | Qwen2.5-32B-Instruct | CausalProbe | 20/20 | 20/20 | 0/20 | 0/20 | 2.00 |
+| case_02 | LOW_VOLTAGE | Qwen2.5-32B-Instruct | CausalProbe | 20/20 | 20/20 | 0/20 | 0/20 | 2.00 |
+| case_03 | THERMAL_OVERLOAD | Qwen2.5-32B-Instruct | CausalProbe | 20/20 | 20/20 | 0/20 | 0/20 | 2.00 |
+| case_04 | THERMAL_OVERLOAD | Qwen2.5-32B-Instruct | CausalProbe | 20/20 | 20/20 | 0/20 | 0/20 | 3.40 |
+| case_05 | NONCONVERGENCE | Qwen2.5-32B-Instruct | CausalProbe | 20/20 | 20/20 | 0/20 | 0/20 | 2.65 |
+| case_06 | NONCONVERGENCE | Qwen2.5-32B-Instruct | CausalProbe | 20/20 | 20/20 | 0/20 | 0/20 | 3.35 |
+| case_01 | LOW_VOLTAGE | DeepSeek-V4-Pro served through SiliconFlow | Generic ReAct | 10/10 | 9/10 | 1/10 | 0/10 | 5.80 |
+| case_01 | LOW_VOLTAGE | DeepSeek-V4-Pro served through SiliconFlow | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 3.40 |
+| case_02 | LOW_VOLTAGE | DeepSeek-V4-Pro served through SiliconFlow | Generic ReAct | 10/10 | 0/10 | 10/10 | 0/10 | 4.00 |
+| case_02 | LOW_VOLTAGE | DeepSeek-V4-Pro served through SiliconFlow | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 4.00 |
+| case_03 | THERMAL_OVERLOAD | DeepSeek-V4-Pro served through SiliconFlow | Generic ReAct | 10/10 | 8/10 | 2/10 | 0/10 | 5.50 |
+| case_03 | THERMAL_OVERLOAD | DeepSeek-V4-Pro served through SiliconFlow | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 4.90 |
+| case_04 | THERMAL_OVERLOAD | DeepSeek-V4-Pro served through SiliconFlow | Generic ReAct | 10/10 | 2/10 | 8/10 | 0/10 | 5.40 |
+| case_04 | THERMAL_OVERLOAD | DeepSeek-V4-Pro served through SiliconFlow | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 5.40 |
+| case_05 | NONCONVERGENCE | DeepSeek-V4-Pro served through SiliconFlow | Generic ReAct | 10/10 | 2/10 | 8/10 | 0/10 | 3.10 |
+| case_05 | NONCONVERGENCE | DeepSeek-V4-Pro served through SiliconFlow | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 3.00 |
+| case_06 | NONCONVERGENCE | DeepSeek-V4-Pro served through SiliconFlow | Generic ReAct | 10/10 | 0/10 | 10/10 | 0/10 | 4.30 |
+| case_06 | NONCONVERGENCE | DeepSeek-V4-Pro served through SiliconFlow | CausalProbe | 10/10 | 10/10 | 0/10 | 0/10 | 3.20 |
+
+Physical case definitions are intentionally not duplicated.
+
+### S7.5 DeepSeek statistical comparison
+
+Mechanism correctness was 60/60 for both methods. Grounded closure was 21/60 (35.0%) for Generic ReAct and 60/60 (100%) for CausalProbe: +65.0 percentage points (bootstrap 95% CI 56.7 to 73.3; exact stratified $p=8.85\times10^{-19}$). Unsupported/premature closure was 39/60 versus 0/60. Mean path length was 4.68 versus 3.98, a CausalProbe-minus-Generic difference of -0.70 (bootstrap 95% CI -0.97 to -0.43; stratified permutation p <0.0001).
+
+### S7.6 Protocol robustness and failure taxonomy
+
+Both DeepSeek methods had 60/60 contract-valid completions, zero safety-ceiling terminations, and zero invalid, repeated, malformed, controller-guard, backend, or transport failures. All 39 Generic non-grounded episodes were correct-mechanism premature closures before an available mechanism-specific verification. CausalProbe obtained affirmative SUPPORT, verified rollback and cleanup, and respected deterministic `FINALIZATION_READY` in all 60 episodes.
+
+### S7.7 Integrity
+
+The DeepSeek integrity audit passed with 120 unique formal episodes, 10 per case/method cell, exact model identity, no fallback, no reasoning tokens, no replay failures, and no PowerFactory execution. Smoke episodes were excluded from every formal statistic. Existing Qwen/Llama/Qwen32 artifacts were read without modification. Claims are limited to the six fixed cases and do not establish a monotonic scaling law or identical hidden compute across providers.
