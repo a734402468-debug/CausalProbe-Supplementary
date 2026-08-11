@@ -1,0 +1,9 @@
+backbone_id,backbone,method_id,method,numerator,denominator,rate,percent
+qwen25_7b,Qwen2.5-7B-Instruct,GENERIC_REACT,Generic ReAct,0,60,0.0,0.0
+qwen25_7b,Qwen2.5-7B-Instruct,PROPOSED,CausalProbe,60,60,1.0,100.0
+llama31_8b,Meta-Llama-3.1-8B-Instruct,GENERIC_REACT,Generic ReAct,0,60,0.0,0.0
+llama31_8b,Meta-Llama-3.1-8B-Instruct,PROPOSED,CausalProbe,41,60,0.6833333333333333,68.33333333333333
+qwen25_32b_frozen,Qwen2.5-32B-Instruct,GENERIC_REACT,Generic ReAct,82,120,0.6833333333333333,68.33333333333333
+qwen25_32b_frozen,Qwen2.5-32B-Instruct,PROPOSED,CausalProbe,120,120,1.0,100.0
+deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,GENERIC_REACT,Generic ReAct,21,60,0.35,35.0
+deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,PROPOSED,CausalProbe,60,60,1.0,100.0

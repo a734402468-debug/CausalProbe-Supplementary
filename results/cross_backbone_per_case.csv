@@ -1,0 +1,49 @@
+case_id,symptom_family,backbone_id,backbone,method_id,method,n,mechanism_correct_n,mechanism_correct_rate,grounded_closure_n,grounded_closure_rate,unsupported_or_premature_closure_n,unsupported_or_premature_closure_rate,safety_ceiling_n,safety_ceiling_rate,path_length_mean
+case_01,LOW_VOLTAGE,qwen25_7b,Qwen2.5-7B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,6.0
+case_02,LOW_VOLTAGE,qwen25_7b,Qwen2.5-7B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,6.0
+case_03,THERMAL_OVERLOAD,qwen25_7b,Qwen2.5-7B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,3.6
+case_04,THERMAL_OVERLOAD,qwen25_7b,Qwen2.5-7B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,6.6
+case_05,NONCONVERGENCE,qwen25_7b,Qwen2.5-7B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,6.0
+case_06,NONCONVERGENCE,qwen25_7b,Qwen2.5-7B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,6.8
+case_01,LOW_VOLTAGE,qwen25_7b,Qwen2.5-7B-Instruct,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,4.0
+case_02,LOW_VOLTAGE,qwen25_7b,Qwen2.5-7B-Instruct,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,4.0
+case_03,THERMAL_OVERLOAD,qwen25_7b,Qwen2.5-7B-Instruct,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,5.2
+case_04,THERMAL_OVERLOAD,qwen25_7b,Qwen2.5-7B-Instruct,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,4.1
+case_05,NONCONVERGENCE,qwen25_7b,Qwen2.5-7B-Instruct,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,3.0
+case_06,NONCONVERGENCE,qwen25_7b,Qwen2.5-7B-Instruct,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,3.0
+case_01,LOW_VOLTAGE,llama31_8b,Meta-Llama-3.1-8B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,5.0
+case_02,LOW_VOLTAGE,llama31_8b,Meta-Llama-3.1-8B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,4.9
+case_03,THERMAL_OVERLOAD,llama31_8b,Meta-Llama-3.1-8B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,5.1
+case_04,THERMAL_OVERLOAD,llama31_8b,Meta-Llama-3.1-8B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,4.0
+case_05,NONCONVERGENCE,llama31_8b,Meta-Llama-3.1-8B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,4.7
+case_06,NONCONVERGENCE,llama31_8b,Meta-Llama-3.1-8B-Instruct,GENERIC_REACT,Generic ReAct,10,0,0.0,0,0.0,0,0.0,10,1.0,4.7
+case_01,LOW_VOLTAGE,llama31_8b,Meta-Llama-3.1-8B-Instruct,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,2.0
+case_02,LOW_VOLTAGE,llama31_8b,Meta-Llama-3.1-8B-Instruct,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,3.2
+case_03,THERMAL_OVERLOAD,llama31_8b,Meta-Llama-3.1-8B-Instruct,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,2.3
+case_04,THERMAL_OVERLOAD,llama31_8b,Meta-Llama-3.1-8B-Instruct,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,3.0
+case_05,NONCONVERGENCE,llama31_8b,Meta-Llama-3.1-8B-Instruct,PROPOSED,CausalProbe,10,0,0.0,0,0.0,0,0.0,10,1.0,0.0
+case_06,NONCONVERGENCE,llama31_8b,Meta-Llama-3.1-8B-Instruct,PROPOSED,CausalProbe,10,1,0.1,1,0.1,0,0.0,9,0.9,0.2
+case_01,LOW_VOLTAGE,qwen25_32b_frozen,Qwen2.5-32B-Instruct,GENERIC_REACT,Generic ReAct,20,11,0.55,11,0.55,9,0.45,0,0.0,6.0
+case_02,LOW_VOLTAGE,qwen25_32b_frozen,Qwen2.5-32B-Instruct,GENERIC_REACT,Generic ReAct,20,20,1.0,11,0.55,9,0.45,0,0.0,5.5
+case_03,THERMAL_OVERLOAD,qwen25_32b_frozen,Qwen2.5-32B-Instruct,GENERIC_REACT,Generic ReAct,20,20,1.0,20,1.0,0,0.0,0,0.0,7.0
+case_04,THERMAL_OVERLOAD,qwen25_32b_frozen,Qwen2.5-32B-Instruct,GENERIC_REACT,Generic ReAct,20,20,1.0,20,1.0,0,0.0,0,0.0,7.0
+case_05,NONCONVERGENCE,qwen25_32b_frozen,Qwen2.5-32B-Instruct,GENERIC_REACT,Generic ReAct,20,20,1.0,20,1.0,0,0.0,0,0.0,6.55
+case_06,NONCONVERGENCE,qwen25_32b_frozen,Qwen2.5-32B-Instruct,GENERIC_REACT,Generic ReAct,20,20,1.0,0,0.0,20,1.0,0,0.0,7.0
+case_01,LOW_VOLTAGE,qwen25_32b_frozen,Qwen2.5-32B-Instruct,PROPOSED,CausalProbe,20,20,1.0,20,1.0,0,0.0,0,0.0,2.0
+case_02,LOW_VOLTAGE,qwen25_32b_frozen,Qwen2.5-32B-Instruct,PROPOSED,CausalProbe,20,20,1.0,20,1.0,0,0.0,0,0.0,2.0
+case_03,THERMAL_OVERLOAD,qwen25_32b_frozen,Qwen2.5-32B-Instruct,PROPOSED,CausalProbe,20,20,1.0,20,1.0,0,0.0,0,0.0,2.0
+case_04,THERMAL_OVERLOAD,qwen25_32b_frozen,Qwen2.5-32B-Instruct,PROPOSED,CausalProbe,20,20,1.0,20,1.0,0,0.0,0,0.0,3.4
+case_05,NONCONVERGENCE,qwen25_32b_frozen,Qwen2.5-32B-Instruct,PROPOSED,CausalProbe,20,20,1.0,20,1.0,0,0.0,0,0.0,2.65
+case_06,NONCONVERGENCE,qwen25_32b_frozen,Qwen2.5-32B-Instruct,PROPOSED,CausalProbe,20,20,1.0,20,1.0,0,0.0,0,0.0,3.35
+case_01,LOW_VOLTAGE,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,GENERIC_REACT,Generic ReAct,10,10,1.0,9,0.9,1,0.1,0,0.0,5.8
+case_01,LOW_VOLTAGE,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,3.4
+case_02,LOW_VOLTAGE,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,GENERIC_REACT,Generic ReAct,10,10,1.0,0,0.0,10,1.0,0,0.0,4.0
+case_02,LOW_VOLTAGE,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,4.0
+case_03,THERMAL_OVERLOAD,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,GENERIC_REACT,Generic ReAct,10,10,1.0,8,0.8,2,0.2,0,0.0,5.5
+case_03,THERMAL_OVERLOAD,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,4.9
+case_04,THERMAL_OVERLOAD,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,GENERIC_REACT,Generic ReAct,10,10,1.0,2,0.2,8,0.8,0,0.0,5.4
+case_04,THERMAL_OVERLOAD,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,5.4
+case_05,NONCONVERGENCE,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,GENERIC_REACT,Generic ReAct,10,10,1.0,2,0.2,8,0.8,0,0.0,3.1
+case_05,NONCONVERGENCE,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,3.0
+case_06,NONCONVERGENCE,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,GENERIC_REACT,Generic ReAct,10,10,1.0,0,0.0,10,1.0,0,0.0,4.3
+case_06,NONCONVERGENCE,deepseek_v4_pro,DeepSeek-V4-Pro served through SiliconFlow,PROPOSED,CausalProbe,10,10,1.0,10,1.0,0,0.0,0,0.0,3.2
