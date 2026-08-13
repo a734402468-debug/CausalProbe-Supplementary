@@ -1,4 +1,4 @@
-# CausalProbe — Supporting Material
+# Supporting Material
 
 This repository contains the supporting material for the manuscript:
 
