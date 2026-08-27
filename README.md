@@ -2,7 +2,7 @@
 
 This repository contains the supporting material for the manuscript:
 
-**LLM-Assisted Active Differential Diagnosis of Power-System Simulation Anomalies with Evidence-Grounded Verification**
+**Active Differential Diagnosis of Power-System Simulation Anomalies via LLM-Guided Targeted Testing**
 
 The repository is intended to support scientific transparency and reviewer inspection of the manuscript's experimental design, evidence semantics, fairness protocol, primary results, representative diagnostic trajectories, auxiliary ablation, and cross-backbone robustness evaluation.
 
